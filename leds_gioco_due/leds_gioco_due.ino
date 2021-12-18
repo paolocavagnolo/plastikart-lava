@@ -10,9 +10,9 @@ CRGB leds[NUM_LEDS];
 uint8_t colorIndex[NUM_LEDS];
 
 DEFINE_GRADIENT_PALETTE(heatmap_gp) {
-    0,  255,  255,    255,  //orange
-  100,  0,  0,    0,  //red
-  255,   255,   255,    255,  //black
+    0,  255,  139,    0,  //orange
+  100,  255,    0,    0,  //red
+  255,    0,    0,    0,  //black
 };
 
 CRGBPalette16 myPal = heatmap_gp;
@@ -21,7 +21,7 @@ void setup() {
   digitalWrite(8,OUTPUT);
   delay(1000);
   LEDS.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
-  LEDS.setBrightness( 120 );
+  LEDS.setBrightness( 255 );
   LEDS.setTemperature(Candle);
 
   for (int i=0; i<NUM_LEDS; i++) {
@@ -32,32 +32,20 @@ void setup() {
 
 bool state = true;
 
-int i = 20;
-
 void loop() {
 
-//  for (uint8_t i=0; i<NUM_LEDS; i++) {
-//    leds[i] = ColorFromPalette(myPal, colorIndex[i]);
-//  }
-//
-//  EVERY_N_MILLISECONDS(5) {
-//    for (uint8_t i=0; i<NUM_LEDS; i++) {
-//      colorIndex[i]++;
-//    }
-//  }
-//
-//  
-  
-  leds[i].r = 255;
-  leds[i].g = 255;
-  leds[i].b = 255;
-  LEDS.show();
+  for (uint8_t i=0; i<NUM_LEDS; i++) {
+    leds[i] = ColorFromPalette(myPal, colorIndex[i]);
+  }
 
-  delay(1000);
-  i++;
-  leds[i-1].r = 0;
-  leds[i-1].g = 0;
-  leds[i-1].b = 0;
-//    
+  EVERY_N_MILLISECONDS(5) {
+    for (uint8_t i=0; i<NUM_LEDS; i++) {
+      colorIndex[i]++;
+    }
+  }
+
+  
+  LEDS.show();
+    
 
 }
