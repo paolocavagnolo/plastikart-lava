@@ -82,7 +82,7 @@ void loop() {
       tt = micros();
       
       for (uint16_t i=0; i<NUM_LEDS; i++) {
-        colorIndex[i]++;
+        colorIndex[i]--;
       }
       
     }
